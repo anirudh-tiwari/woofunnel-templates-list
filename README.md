@@ -1,1 +1,0 @@
-# woofunnel-templates-list
