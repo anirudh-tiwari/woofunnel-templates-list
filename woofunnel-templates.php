@@ -104,7 +104,12 @@ if ( ! class_exists( 'BWFTL' ) ) {
 			// wp_enqueue_script( 'wp-format-library' );
 
 			wp_enqueue_script( $script_handle, $assets_dir . $js_path, $script_deps, $version, true );
-			wp_localize_script( $script_handle, 'bwftl', []);
+			
+			$localized_data = [
+				'app_data' => BWFTL_PLUGIN_URL . 'dist/'
+			];
+			wp_localize_script( $script_handle, 'bwftl', $localized_data);
+
             wp_enqueue_style( $script_handle, $assets_dir . $style_path, array(), $version );
 			
 			if ( function_exists( 'wp_set_script_translations' ) ) {

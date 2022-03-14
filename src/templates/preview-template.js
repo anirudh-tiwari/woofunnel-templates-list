@@ -14,6 +14,7 @@ import { Modal, Button, Icon } from '@wordpress/components';
  * Internal dependencies
  */
 import WebPreview from '../components/web-preview';
+import BWFLogo from '../assets/img/logo.svg';
 
 export default function TemplatesPreview( {
 	isOpen,
@@ -45,12 +46,6 @@ export default function TemplatesPreview( {
 		pro: template.pro,
 		template: template,
 	} ); // use to import current active template
-
-	const headerData =
-		!! wffn_contacts_data && !! wffn_contacts_data.header_data
-			? wffn_contacts_data.header_data
-			: {};
-	const logo = headerData.logo ? headerData.logo : '';
 
 	useEffect( () => {
 		/**ScrollTop Active Template in sidebar */
@@ -131,11 +126,7 @@ export default function TemplatesPreview( {
 			<div className="wffn_template_preview_wrap">
 				<div className="wffn_template_preview_header">
 					<div>
-						<img
-							src={ logo }
-							alt={ 'Funnel Builder for WordPress' }
-							width={ 148 }
-						/>
+						<BWFLogo />
 					</div>
 
 					<div className="wffn_template_viewport">

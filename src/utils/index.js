@@ -26,7 +26,7 @@ export const hideSnackBar = ( context, interval = 500 ) => {
 export const setPublicPath = () => {
 	if ( appMode === production ) {
 		__webpack_public_path__ =
-			appMode === production ? wffn_contacts_data.app_path : '';
+			appMode === production ? bwftl.app_path : '';
 	}
 };
 
