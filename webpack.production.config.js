@@ -75,19 +75,7 @@ module.exports = {
                     'css-loader',
                     {
                         loader: 'sass-loader',
-                        options: {
-                            sassOptions: {
-                                includePaths: [
-                                    './admin/frontend/src/assets/css/abstracts'
-                                ],
-                            },
-                            additionalData:
-                                '@import "_colors"; ' +
-                                '@import "_variables"; ' +
-                                '@import "_breakpoints"; ' +
-                                '@import "_mixins"; ',
-                        },
-                    },
+                    }
                 ]
             },
             {

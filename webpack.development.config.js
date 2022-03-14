@@ -43,18 +43,6 @@ module.exports = {
                     'css-loader',
                     {
                         loader: 'sass-loader',
-                        options: {
-                            sassOptions: {
-                                includePaths: [
-                                    './src/assets/css/abstracts'
-                                ],
-                            },
-                            additionalData:
-                                '@import "_colors"; ' +
-                                '@import "_variables"; ' +
-                                '@import "_breakpoints"; ' +
-                                '@import "_mixins"; ',
-                        },
                     },
                 ]
             },

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WooFunnels Template List
  * Plugin URI: https://buildwoofunnels.com/wordpress-funnel-builder/
- * Description: Add Woofunnel template list section by shortocde.
+ * Description: Add Woofunnel template list section by shortocde [woofunnel_templates_list /].
  * Version: 1.0.0
  * Author: BuildWooFunnels
  * Author URI: https://buildwoofunnels.com
@@ -60,19 +60,28 @@ if ( ! class_exists( 'BWFTL' ) ) {
 			define( 'BWFTL_PLUGIN_DIR', __DIR__ );
 			define( 'BWFTL_PLUGIN_URL', untrailingslashit( plugin_dir_url( BWFTL_PLUGIN_FILE ) ) );
 			define( 'BWFTL_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-			defined( 'BWFTL_REACT_DEV_URL' ) || define( 'BWFTL_REACT_DEV_URL',  BWFTL_PLUGIN_URL . 'dist' );
+			defined( 'BWFTL_REACT_DEV_URL' ) || define( 'BWFTL_REACT_DEV_URL',  BWFTL_PLUGIN_URL . '/dist' );
 		}
 
+		/**
+		 * Plugin loaded callback
+		 */
         public function bwftl_plugin_loaded() {
             add_shortcode( 'woofunnel_templates_list', [$this, 'woofunnel_templates_list_func' ] );
 			$this->load_require_files();
         }
 
+		/**
+		 * Shortocode [woofunnel_templates_list /] callback
+		 */
         public function woofunnel_templates_list_func() {
             $this->load_react_scripts();
             return '<div class="bwf-templates-list" id="bwf-templates-list"></div>';
         }
 
+		/**
+		 * Load React Scripts
+		 */
         public function load_react_scripts() {
             $app_name      = 'bwf-templates';
             $script_handle = 'bwf-templates';
@@ -100,9 +109,6 @@ if ( ! class_exists( 'BWFTL' ) ) {
 				return false === strpos( $dep, 'css' );
 			} );
 
-			// wp_enqueue_style( 'wp-format-library' );
-			// wp_enqueue_script( 'wp-format-library' );
-
 			wp_enqueue_script( $script_handle, $assets_dir . $js_path, $script_deps, $version, true );
 			
 			$localized_data = [
@@ -117,6 +123,9 @@ if ( ! class_exists( 'BWFTL' ) ) {
 			}
         }
 
+		/**
+		 * Load Plugin Require Files
+		 */
 		public function load_require_files() {
 			require_once BWFTL_PLUGIN_DIR . '/includes/class-bwftl-rest-funnel-templates.php';
 		}
