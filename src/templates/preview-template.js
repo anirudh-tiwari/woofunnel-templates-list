@@ -15,22 +15,17 @@ import { Modal, Button, Icon } from '@wordpress/components';
  */
 import WebPreview from '../components/web-preview';
 import BWFLogo from '../assets/img/logo.svg';
+import SVGIcon from '../components/svg-icon';
 
 export default function TemplatesPreview( {
 	isOpen,
 	onRequestClose,
 	templateID,
 	template,
-	//  activeGroup,
-	// importTemplate,
 	activeEditor,
 	type,
-	// importing,
 	templateList,
 	getTemplateFilterCheck,
-	// templateGroup,
-	// stepType = "landing",
-	// hasPRO,
 	isSelected,
 } ) {
 	/** return null if model open is not trigger */
@@ -61,13 +56,13 @@ export default function TemplatesPreview( {
 		return step.type + '-' + step.slug;
 	};
 
-	let getPreviewSidebar = () => {
-		let sidebarOpts = templateList[ type ][ activeEditor ]
+	const getPreviewSidebar = () => {
+		const sidebarOpts = templateList[ type ][ activeEditor ]
 			? templateList[ type ][ activeEditor ]
 			: {};
-		let previewSidebar = [];
+		const previewSidebar = [];
 
-		for ( let key in sidebarOpts ) {
+		for ( const key in sidebarOpts ) {
 			if (
 				true === sidebarOpts[ key ].build_from_scratch ||
 				'yes' === sidebarOpts[ key ].build_from_scratch
@@ -99,7 +94,6 @@ export default function TemplatesPreview( {
 			}
 		}
 		return previewSidebar;
-		// <div className="wffn_template_preview_sidebar">{previewSidebar}</div>;
 	};
 	const getPreviewTemplateID = ( slug ) => {
 		if ( 'customizer' === activeEditor && 'wc_checkout' === type ) {
@@ -115,9 +109,11 @@ export default function TemplatesPreview( {
 		return slug;
 	};
 
+	console.log( 'aniViewport', viewport );
+
 	return isOpen ? (
 		<Modal
-			className="wffn_template_preview_modal"
+			className="wffn_template_preview_modal components-modal__screen-overlay"
 			onRequestClose={ () => onRequestClose( false ) }
 			overlayClassName="wffn_template_preview_overlay"
 			isDismissible={ false }
@@ -162,36 +158,18 @@ export default function TemplatesPreview( {
 					</div>
 
 					<div className="bwf-t-center">
-						{ /* {hasPRO(activeTemplate.pro) ? ( */ }
-						{ activeTemplate.pro ? (
-							<a
-								href="https://buildwoofunnels.com/exclusive-offer/"
-								target="_blank"
-								style={ {
-									color: '#fff',
-									textDecoration: 'none',
-								} }
-							>
-								<Button
-									className="wffn-import-template-btn"
-									isPrimary
-								>
-									{ __( 'Get PRO', 'funnel-builder' ) }
-								</Button>
-							</a>
-						) : ! isSelected ? (
-							<Button
-								className="wffn-import-template-btn"
-								isPrimary
-								// onClick={ () => {
-								// 	importTemplate( activeTemplate.template );
-								// } }
-							>
-								Buy
-							</Button>
-						) : (
-							''
-						) }
+						<Button
+							className="wffn-import-template-btn "
+							isPrimary
+							onClick={ () =>
+								window.open(
+									'https://buildwoofunnels.com/exclusive-offer/',
+									'_self'
+								)
+							}
+						>
+							Buy
+						</Button>
 					</div>
 					<div className="wffn_template_preview_close">
 						<Button
@@ -199,7 +177,7 @@ export default function TemplatesPreview( {
 								onRequestClose( false );
 							} }
 						>
-							<Icon icon="no-alt" />
+							<SVGIcon icon="close" size="16" />
 						</Button>
 					</div>
 				</div>
@@ -209,11 +187,6 @@ export default function TemplatesPreview( {
 							`wffn_template_preview_inner ${
 								! isSelected ? 'wffn_funnel_preview' : ''
 							} `
-							//  {
-							//      wffn_funnel_preview:
-							//          "funnel" !== activeGroup ||
-							//          ("funnel" === activeGroup && template.steps),
-							//  }
 						) }
 					>
 						<WebPreview

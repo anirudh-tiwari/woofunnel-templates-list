@@ -4,7 +4,7 @@
 import { Component } from '@wordpress/element';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import "./style.scss"
+import './style.scss';
 
 /**
  * Spinner - An indeterminate circular progress indicator.
