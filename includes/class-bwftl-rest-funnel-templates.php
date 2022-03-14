@@ -133,10 +133,10 @@ if ( ! class_exists( 'BWFTL_REST_Funnel_Templates' ) ) {
 
 			$resp['default_builder'] = 'elementor';
 
-			if( class_exists( 'WooFunnels_Dashboard' ) ) {
+			if ( class_exists( 'WooFunnels_Dashboard' ) ) {
 				$templates = WooFunnels_Dashboard::get_all_templates();
 				$json_data = isset( $templates['funnel'] ) ? $templates['funnel'] : [];
-	
+
 				if ( empty( $json_data ) ) {
 					$templates = WooFunnels_Dashboard::get_all_templates( true );
 					$json_data = isset( $templates['funnel'] ) ? $templates['funnel'] : [];
@@ -146,12 +146,11 @@ if ( ! class_exists( 'BWFTL_REST_Funnel_Templates' ) ) {
 				$json_data = isset( $templates['funnel'] ) ? $templates['funnel'] : [];
 			}
 
-
 			foreach ( $json_data as &$templates_nt ) {
 				if ( is_array( $templates_nt ) ) {
 					foreach ( $templates_nt as $k => &$temp_val ) {
 						if ( isset( $temp_val['pro'] ) && 'yes' === $temp_val['pro'] ) {
-							$temp_val['license_exist'] =  class_exists( 'WFFN_Core' ) ? WFFN_Core()->admin->get_license_status() : false;
+							$temp_val['license_exist'] = class_exists( 'WFFN_Core' ) ? WFFN_Core()->admin->get_license_status() : false;
 
 							/**
 							 * Check if template is set to replace lite template
@@ -183,7 +182,6 @@ if ( ! class_exists( 'BWFTL_REST_Funnel_Templates' ) ) {
 		}
 
 	}
-
 
 	if ( ! function_exists( 'BWFTL_rest_funnel_Templates' ) ) {
 
