@@ -258,7 +258,7 @@ export default function TemplatesPreview( {
 								className="wffn-import-template-btn"
 								isPrimary
 							>
-								{ 'Buy Now' }
+								{ 'Get Started' }
 							</Button>
 						</a>
 					</div>
