@@ -16,7 +16,6 @@ import { Dropdown, Icon } from '@wordpress/components';
  */
 import templateDispatchers from '../store/dispatchers/templates';
 import TemplatesSelectors from '../store/selectors/templates';
-import BWFLoading from '../components/bwf-loading';
 import TemplatesPreview from './preview-template';
 import TemplateSteps from './template-steps';
 import TemplateLoader from './template-loader';
@@ -329,16 +328,9 @@ const FunnelTemplates = () => {
 						activeEditor={ activeEditor }
 						templateID={ templatePreview.id }
 						template={ templatePreview.template }
-						type={ type }
-						// importTemplate={ ( template ) => {
-						// 	importTemplate( template );
-						// } }
-						// importing={ importing }
 						isSelected={ templatePreview.isSelected }
-						// templateGroup={templateGroup}
-						// activeGroup={activeTemplateGroup}
+						activeGroup={ type }
 						getTemplateFilterCheck={ getTemplateFilterCheck }
-						// hasPRO={hasPRO}
 					/>
 				</div>
 			) }

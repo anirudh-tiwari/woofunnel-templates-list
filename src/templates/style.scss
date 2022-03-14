@@ -17,7 +17,7 @@
 	width: 225px;
 	background-color: #fff;
 	height: calc( 100vh - 80px );
-	padding: 20px;
+	padding: 0 20px 20px;
 	box-shadow: 0 13px 20px 0 rgba( 0, 0, 0, 0.05 );
 	float: right;
 	overflow-y: auto;
@@ -28,9 +28,10 @@
 	.wffn_template_page_options {
 	display: flex;
 	align-items: center;
-	margin-bottom: 40px !important;
+	padding-top: 25px;
 	text-align: center;
 	flex-direction: column;
+	cursor: pointer;
 	color: #3c434a;
 }
 .wffn_template_preview_wrap
@@ -2350,6 +2351,13 @@ body .iziModal .iziModal-button-close:hover:before {
 	background-position: center !important;
 	margin-top: 6px;
 }
+.wffn_template_preview_wrap .wffn_template_preview_content .wffn_template_preview_inner .wffn-web-preview.is-loading, .wffn_template_preview_wrap .wffn_template_preview_content .wffn_template_preview_inner .woocommerce-web-preview.is-loading {
+	min-height: calc(100vh - 66px);
+	background: #fff;
+}
+.wffn_template_preview_wrap .wffn_template_preview_content {
+	border-top: 1px solid #cfcfcf;
+}
 .iziModal .iziModal-header.iziModal-noSubtitle .iziModal-button:before {
 	content: unset;
 }
@@ -3202,7 +3210,7 @@ label.wffn_dropdown_fields:hover input {
 	.wffn_template_viewport
 	.wffn_viewport_icons {
 	margin: 0 4px;
-	padding: 8px 8px 10px;
+	padding: 8px 8px 4px;
 	cursor: pointer;
 	border: 2px solid transparent;
 	border-radius: 6px;

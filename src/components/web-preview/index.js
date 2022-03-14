@@ -4,13 +4,12 @@
 import classnames from 'classnames';
 import { Component, createRef } from '@wordpress/element';
 import { noop } from 'lodash';
-import PropTypes from 'prop-types';
 
 /**
  * Internal dependencies
  */
-import Spinner from '../spinner';
 import './style.scss';
+import BWFLoading from '../bwf-loading';
 
 /**
  * WebPreview component to display an iframe of another page.
@@ -33,11 +32,21 @@ class WebPreview extends Component {
 
 	setLoaded() {
 		this.setState( { isLoading: false } );
-		this.props.onLoad();
+		// this.props.onLoad();
+	}
+	componentDidUpdate( prevProps, prevState ) {
+		if ( !! this.props.src && this.props.src !== prevProps.src ) {
+			this.setState( { isLoading: true } );
+		}
 	}
 
 	render() {
-		const { className, loadingContent, src, title } = this.props;
+		const {
+			className,
+			loadingContent = <BWFLoading size={ 'xxl' } />,
+			src,
+			title,
+		} = this.props;
 		const { isLoading } = this.state;
 
 		const classes = classnames( 'wffn-web-preview', className, {
@@ -58,33 +67,5 @@ class WebPreview extends Component {
 		);
 	}
 }
-
-WebPreview.propTypes = {
-	/**
-	 * Additional class name to style the component.
-	 */
-	className: PropTypes.string,
-	/**
-	 * Content shown when iframe is still loading.
-	 */
-	loadingContent: PropTypes.node,
-	/**
-	 * Function to fire when iframe content is loaded.
-	 */
-	onLoad: PropTypes.func,
-	/**
-	 * Iframe src to load.
-	 */
-	src: PropTypes.string.isRequired,
-	/**
-	 * Iframe title.
-	 */
-	title: PropTypes.string.isRequired,
-};
-
-WebPreview.defaultProps = {
-	loadingContent: <Spinner />,
-	onLoad: noop,
-};
 
 export default WebPreview;
