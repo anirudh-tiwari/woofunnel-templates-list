@@ -70,7 +70,7 @@ if ( ! class_exists( 'BWFTL' ) ) {
 
         public function woofunnel_templates_list_func() {
             $this->load_react_scripts();
-            return '<div class="bwf-templates-list" id="bwf-templates-list">Hii</div>';
+            return '<div class="bwf-templates-list" id="bwf-templates-list"></div>';
         }
 
         public function load_react_scripts() {

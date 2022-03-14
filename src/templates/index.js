@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
 import { Dropdown, Icon } from '@wordpress/components';
 
@@ -19,6 +19,7 @@ import TemplatesSelectors from '../store/selectors/templates';
 import BWFLoading from '../components/bwf-loading';
 import TemplatesPreview from './preview-template';
 import TemplateSteps from './template-steps';
+import TemplateLoader from './template-loader';
 import './style.scss';
 import './template-style.scss';
 
@@ -54,7 +55,7 @@ const FunnelTemplates = () => {
 	/**Update CurrentActive filter by template group/pages */
 	useEffect( () => {
 		setTemplateFilter( currentActiveFilt );
-	}, [ templateFilters, templateEditors ] );
+	}, [ templateFilters, templateEditors, type ] );
 
 	useEffect( () => {
 		fetchTemplates();
@@ -83,6 +84,7 @@ const FunnelTemplates = () => {
 						type="radio"
 						name="wffn-filter-type"
 						onChange={ () => setTemplateFilter( key ) }
+						checked={ activeFilter === key }
 					/>
 					{ templateFilterData[ key ] }
 				</label>
@@ -143,15 +145,14 @@ const FunnelTemplates = () => {
 			const template = templatesData[ templateID ];
 			if ( getTemplateFilterCheck( template ) ) {
 				// check current active filter
-				designTemplate.push(
-					<div className="wffn_temp_card" key={ templateID }>
-						{ template?.build_from_scratch ? (
-							<div className="bwf-display-none"></div>
-						) : (
+				! template.build_from_scratch &&
+					designTemplate.push(
+						<div className="wffn_temp_card" key={ templateID }>
 							<div className="wffn_template_sec">
 								{ 'yes' === template?.pro ? (
 									<div className="wffn_template_sec_ribbon wffn-pro">
-										{ /* {getRibbonName(template)} */ }Pro
+										{ /* {getRibbonName(template)} */ }
+										Pro
 									</div>
 								) : (
 									''
@@ -178,7 +179,7 @@ const FunnelTemplates = () => {
 															setPreviewTemplate(
 																{
 																	id: templateID,
-																	template: template,
+																	template,
 																	isSelected: false,
 																}
 															),
@@ -199,12 +200,35 @@ const FunnelTemplates = () => {
 									<div className="wffn_template_meta_left">
 										{ template?.name }
 									</div>
-									<div className="wffn_template_meta_right"></div>
+									<div className="wffn_template_meta_right">
+										{ 'funnel' === type &&
+										template.steps ? (
+											<>
+												<svg
+													fill="#0073aa"
+													xmlns="http://www.w3.org/2000/svg"
+													width="18"
+													height="18"
+													viewBox="0 0 48 48"
+												>
+													<path d="M 28.591797 6.0019531 C 28.418672 5.9915781 28.243672 6.012 28.076172 6.0625 L 6.0761719 12.5625 C 5.4711719 12.7415 5.0419063 13.280156 5.0039062 13.910156 C 4.9659062 14.540156 5.3252969 15.125953 5.9042969 15.376953 L 20.904297 21.876953 C 21.093297 21.958953 21.296 22 21.5 22 C 21.643 22 21.786781 21.9785 21.925781 21.9375 L 43.925781 15.4375 C 44.530781 15.2585 44.958094 14.719844 44.996094 14.089844 C 45.034094 13.459844 44.676656 12.874047 44.097656 12.623047 L 29.097656 6.1230469 C 28.936656 6.0520469 28.764922 6.0123281 28.591797 6.0019531 z M 6.515625 19.492188 A 1.50015 1.50015 0 0 0 5.9042969 22.376953 L 20.904297 28.876953 A 1.50015 1.50015 0 0 0 21.925781 28.939453 L 43.925781 22.439453 A 1.5011044 1.5011044 0 1 0 43.074219 19.560547 L 21.597656 25.908203 L 7.0957031 19.623047 A 1.50015 1.50015 0 0 0 6.515625 19.492188 z M 6.515625 26.492188 A 1.50015 1.50015 0 0 0 5.9042969 29.376953 L 20.904297 35.876953 A 1.50015 1.50015 0 0 0 21.925781 35.939453 L 43.925781 29.439453 A 1.5011044 1.5011044 0 1 0 43.074219 26.560547 L 21.597656 32.908203 L 7.0957031 26.623047 A 1.50015 1.50015 0 0 0 6.515625 26.492188 z M 6.515625 33.492188 A 1.50015 1.50015 0 0 0 5.9042969 36.376953 L 20.904297 42.876953 A 1.50015 1.50015 0 0 0 21.925781 42.939453 L 43.925781 36.439453 A 1.5011044 1.5011044 0 1 0 43.074219 33.560547 L 21.597656 39.908203 L 7.0957031 33.623047 A 1.50015 1.50015 0 0 0 6.515625 33.492188 z"></path>
+												</svg>
+												{ sprintf(
+													_n(
+														'%s step',
+														'%s steps',
+														template.steps.length,
+														'funel-builder'
+													),
+													template.steps.length
+												) }
+											</>
+										) : null }
+									</div>
 								</div>
 							</div>
-						) }
-					</div>
-				);
+						</div>
+					);
 			}
 		}
 		return designTemplate;
@@ -213,15 +237,7 @@ const FunnelTemplates = () => {
 	return (
 		<>
 			{ templateLoading() ? (
-				<div
-					style={ {
-						height: '350px',
-						display: 'grid',
-						placeContent: 'center',
-					} }
-				>
-					{ <BWFLoading size={ 'xxl' } /> }
-				</div>
+				<TemplateLoader />
 			) : (
 				<div className="wffn_template_wrap">
 					<div id="wffn_design_container">
@@ -259,12 +275,16 @@ const FunnelTemplates = () => {
 														onClick={ onToggle }
 														aria-expanded={ isOpen }
 													>
-														{ templateEditors[
-															type
-														] &&
-															templateEditors[
+														<span>
+															{ templateEditors[
 																type
-															][ activeEditor ] }
+															] &&
+																templateEditors[
+																	type
+																][
+																	activeEditor
+																] }
+														</span>
 														&nbsp;
 														<Icon icon="arrow-down-alt2" />
 													</div>
@@ -294,10 +314,7 @@ const FunnelTemplates = () => {
 								</div>
 							</div>
 							{
-								<div
-									className="wffn_tab-content"
-									style={ { paddingTop: '20px' } }
-								>
+								<div className="wffn_tab-content">
 									<div className="wffn_pick_template">
 										{ getTemplateList() }
 									</div>

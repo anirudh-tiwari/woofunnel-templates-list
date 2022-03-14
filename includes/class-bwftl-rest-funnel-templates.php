@@ -64,28 +64,28 @@ if ( ! class_exists( 'BWFTL_REST_Funnel_Templates' ) ) {
 					'divi'      => 'Divi',
 					'gutenberg' => 'Gutenberg',
 					'oxy'       => 'Oxygen',
-					'wp_editor' => 'Other'
+					// 'wp_editor' => 'Other'
 				],
 				'landing'     => [
 					'elementor' => 'Elementor',
 					'divi'      => 'Divi',
 					'gutenberg' => 'Gutenberg',
 					'oxy'       => 'Oxygen',
-					'wp_editor' => 'Other'
+					// 'wp_editor' => 'Other'
 				],
 				'optin'       => [
 					'elementor' => 'Elementor',
 					'divi'      => 'Divi',
 					'gutenberg' => 'Gutenberg',
 					'oxy'       => 'Oxygen',
-					'wp_editor' => 'Other (Using Shortcodes)'
+					// 'wp_editor' => 'Other (Using Shortcodes)'
 				],
 				'wc_thankyou' => [
 					'elementor' => 'Elementor',
 					'divi'      => 'Divi',
 					'gutenberg' => 'Gutenberg',
 					'oxy'       => 'Oxygen',
-					'wp_editor' => 'Other (Using Shortcodes)'
+					// 'wp_editor' => 'Other (Using Shortcodes)'
 				],
 				'wc_checkout' => [
 					'elementor'  => 'Elementor',
@@ -93,7 +93,7 @@ if ( ! class_exists( 'BWFTL_REST_Funnel_Templates' ) ) {
 					'gutenberg'  => 'Gutenberg',
 					'oxy'        => 'Oxygen',
 					'customizer' => 'Customizer', //pre_built
-					'wp_editor'  => 'Other (Using Shortcodes)'
+					// 'wp_editor'  => 'Other (Using Shortcodes)'
 				],
 				'upsell'      => [
 					'elementor'  => 'Elementor',
@@ -101,7 +101,7 @@ if ( ! class_exists( 'BWFTL_REST_Funnel_Templates' ) ) {
 					'gutenberg'  => 'Gutenberg',
 					'oxy'        => 'Oxygen',
 					'customizer' => 'Customizer',
-					'wp_editor'  => 'Other (Using Shortcodes)'
+					// 'wp_editor'  => 'Other (Using Shortcodes)'
 				]
 			);
 
