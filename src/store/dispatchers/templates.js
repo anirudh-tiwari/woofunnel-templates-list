@@ -11,7 +11,7 @@ const getDispatchers = () => {
 	return {
 		...remainingDispatchers,
 		fetch: () => {
-			fetch( 'GET', getApiPath( 'woofunnels/templates/' ) );
+			fetch( 'GET', getApiPath( 'woofunnel/templates/' ) );
 		},
 		makeDefaultEditor: ( editor = '' ) =>
 			setStateProp( 'default_builder', editor ),
