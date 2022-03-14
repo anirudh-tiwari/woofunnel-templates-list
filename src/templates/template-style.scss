@@ -1,0 +1,39 @@
+.bwf-step-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+    .bwf-step-brick {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        padding: 10px 24px;
+        background: #FAFAFA;
+        border: 1px solid #E7E7E7;
+        box-sizing: border-box;
+        border-radius: 3px;
+        cursor: pointer;
+        &.bwf-active-step {
+            background: #0073AA;
+            color: #fff;
+        }
+    }
+}
+.wffn_template_wrap {
+    .wffn_template_header_item {
+        .wffn_filter_container {
+            gap: 20px;
+            .wffn_filter_field {
+                min-width: auto !important; 
+                line-height: normal !important;
+                display: inline-flex;
+                gap: 8px;
+                align-items: center;
+                border: 0;
+                font-size: 16px;
+            }
+    
+        }
+    }
+
+}

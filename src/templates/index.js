@@ -1,14 +1,29 @@
+/**
+ * External dependencies
+ */
+import classNames from 'classnames';
+import { isEmpty } from 'lodash';
+
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
+import { Dropdown, Icon } from '@wordpress/components';
+
+/**
+ * Internal dependencies
+ */
 import templateDispatchers from '../store/dispatchers/templates';
 import TemplatesSelectors from '../store/selectors/templates';
-// import BWFPageLoading from "BWF/components/page-loading";
-import { isEmpty } from 'lodash';
-import { Dropdown, Icon } from '@wordpress/components';
-import './style.scss';
+import BWFLoading from '../components/bwf-loading';
 import TemplatesPreview from './preview-template';
+import TemplateSteps from './template-steps';
+import './style.scss';
+import './template-style.scss';
 
-const FunnelTemplates = ( { type = 'landing' } ) => {
+const FunnelTemplates = () => {
+	const [ type, setType ] = useState( 'funnel' );
 	const [ activeEditor, setactiveEditor ] = useState( 'elementor' );
 	const [ isOpen, setOpen ] = useState( false );
 	const [ templatePreview, setPreviewTemplate ] = useState( {
@@ -57,19 +72,21 @@ const FunnelTemplates = ( { type = 'landing' } ) => {
 
 		const tempFilters = [];
 		for ( const key in templateFilterData ) {
-			if ( key !== 'all' ) {
-				tempFilters.push(
-					<div
-						className={ classNames( 'wffn_filter_container_inner', {
-							wffn_selected_filter: activeFilter === key,
-						} ) }
-						onClick={ () => setTemplateFilter( key ) }
-						key={ key }
-					>
-						{ templateFilterData[ key ] }
-					</div>
-				);
-			}
+			tempFilters.push(
+				<label
+					className={ classNames( 'wffn_filter_field', {
+						wffn_selected_filter: activeFilter === key,
+					} ) }
+					key={ key }
+				>
+					<input
+						type="radio"
+						name="wffn-filter-type"
+						onChange={ () => setTemplateFilter( key ) }
+					/>
+					{ templateFilterData[ key ] }
+				</label>
+			);
 		}
 		return tempFilters;
 	};
@@ -203,29 +220,25 @@ const FunnelTemplates = ( { type = 'landing' } ) => {
 						placeContent: 'center',
 					} }
 				>
-					{ /* <BWFPageLoading /> */ }
+					{ <BWFLoading size={ 'xxl' } /> }
 				</div>
 			) : (
 				<div className="wffn_template_wrap">
 					<div id="wffn_design_container">
+						<div className={ 'wffn_tabs' }>
+							<TemplateSteps
+								activeTemplateType={ type }
+								setTemplateType={ setType }
+							/>
+						</div>
 						<div className="wffn_tab_container">
 							<div className="wffn_template_header">
-								<div
-									className="wffn_template_header_item"
-									style={ { zIndex: 10 } }
-								>
+								<div className="wffn_template_header_item">
 									<div className="wffn_filter_container">
 										{ getTemplateFilters() }
 									</div>
 								</div>
-								<div
-									className="header_item"
-									// style={
-									// 	true === wffn.is_rtl
-									// 		? { marginRight: 'auto' }
-									// 		: { marginLeft: 'auto' }
-									// }
-								>
+								<div className="header_item">
 									<div className="wffn_template_editor">
 										<span className="wffn_editor_field_label">
 											{ __(
