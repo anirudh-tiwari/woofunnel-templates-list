@@ -65,6 +65,7 @@ if ( ! class_exists( 'BWFTL' ) ) {
 
         public function bwftl_plugin_loaded() {
             add_shortcode( 'woofunnel_templates_list', [$this, 'woofunnel_templates_list_func' ] );
+			$this->load_require_files();
         }
 
         public function woofunnel_templates_list_func() {
@@ -110,6 +111,10 @@ if ( ! class_exists( 'BWFTL' ) ) {
 				wp_set_script_translations( "$script_handle-i18n", BWFTL_I18N );
 			}
         }
+
+		public function load_require_files() {
+			require_once BWFTL_PLUGIN_DIR . '/includes/class-bwftl-rest-funnel-templates.php';
+		}
 
     }
     return BWFTL::get_instance();
