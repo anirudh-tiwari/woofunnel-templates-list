@@ -19,6 +19,7 @@ import TemplatesSelectors from '../store/selectors/templates';
 import TemplatesPreview from './preview-template';
 import TemplateSteps from './template-steps';
 import TemplateLoader from './template-loader';
+import SVGIcon from '../components/svg-icon';
 import './style.scss';
 import './template-style.scss';
 
@@ -285,7 +286,17 @@ const FunnelTemplates = () => {
 																] }
 														</span>
 														&nbsp;
-														<Icon icon="arrow-down-alt2" />
+														<SVGIcon
+															icon="down-arrow"
+															style={
+																isOpen
+																	? {
+																			transform:
+																				'rotate(180deg)',
+																	  }
+																	: {}
+															}
+														/>
 													</div>
 												) }
 												renderContent={ ( {

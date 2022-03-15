@@ -223,7 +223,12 @@ export default function TemplatesPreview( {
 								onClick={ () => setviewport( 'desktop' ) }
 								title="Desktop Viewport"
 							>
-								<Icon icon="desktop" size="24" />
+								<SVGIcon
+									icon="desktop"
+									color={
+										'desktop' === viewport && '#0073aa'
+									}
+								/>
 							</span>
 							<span
 								className={ classNames( 'wffn_viewport_icons', {
@@ -232,7 +237,10 @@ export default function TemplatesPreview( {
 								onClick={ () => setviewport( 'tablet' ) }
 								title="Tablet Viewport"
 							>
-								<Icon icon="tablet" size="24" />
+								<SVGIcon
+									icon="tablet"
+									color={ 'tablet' === viewport && '#0073aa' }
+								/>
 							</span>
 							<span
 								className={ classNames( 'wffn_viewport_icons', {
@@ -241,7 +249,10 @@ export default function TemplatesPreview( {
 								onClick={ () => setviewport( 'mobile' ) }
 								title="Mobile Viewport"
 							>
-								<Icon icon="smartphone" size="24" />
+								<SVGIcon
+									icon="mobile"
+									color={ 'mobile' === viewport && '#0073aa' }
+								/>
 							</span>
 						</div>
 					</div>
@@ -258,7 +269,7 @@ export default function TemplatesPreview( {
 								className="wffn-import-template-btn"
 								isPrimary
 							>
-								{ 'Buy Now' }
+								{ 'Get Started' }
 							</Button>
 						</a>
 					</div>
