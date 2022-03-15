@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
  * WordPress dependencies
  */
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import { Dropdown, Icon } from '@wordpress/components';
 
 /**
@@ -22,11 +22,13 @@ import TemplateLoader from './template-loader';
 import SVGIcon from '../components/svg-icon';
 import './style.scss';
 import './template-style.scss';
+import LazyImage from '../components/bwf-image';
 
 const FunnelTemplates = () => {
 	const [ type, setType ] = useState( 'funnel' );
 	const [ activeEditor, setactiveEditor ] = useState( 'elementor' );
 	const [ isOpen, setOpen ] = useState( false );
+	// const [ loaded, setLoaded ] = useState( false );
 	const [ templatePreview, setPreviewTemplate ] = useState( {
 		id: '',
 		template: {},
@@ -51,7 +53,7 @@ const FunnelTemplates = () => {
 			? Object.keys( templateFilters[ type ] )[ 0 ]
 			: false;
 	const [ activeFilter, setTemplateFilter ] = useState( currentActiveFilt );
-
+	const imageRef = useRef();
 	/**Update CurrentActive filter by template group/pages */
 	useEffect( () => {
 		setTemplateFilter( currentActiveFilt );
@@ -60,6 +62,21 @@ const FunnelTemplates = () => {
 	useEffect( () => {
 		fetchTemplates();
 	}, [] );
+
+	// useEffect( () => {
+	// 	setLoaded( false );
+	// }, [ type ] );
+
+	// const onLoad = () => {
+	// 	setLoaded( true );
+	// };
+
+	// useEffect( () => {
+	// 	if ( ref.current && ref.current.complete ) {
+	// 		onLoad();
+	// 	}
+	// 	console.log( 'ani', ref.current?.complete );
+	// }, [ ref, loaded, onLoad, type ] );
 
 	const getTemplateFilters = () => {
 		const templateFilterData = templateFilters[ type ];
@@ -164,7 +181,19 @@ const FunnelTemplates = () => {
 											: 'wffn_template_sec_design'
 									}
 								>
-									<img
+									{ /* <img
+										src={ template?.thumbnail }
+										className="wffn_img_temp"
+										alt="Template"
+										ref={ imageRef }
+										onLoad={ () => {
+											console.log(
+												'RefImage',
+												imageRef.current
+											);
+										} }
+									/> */ }
+									<LazyImage
 										src={ template?.thumbnail }
 										className="wffn_img_temp"
 										alt="Template"
