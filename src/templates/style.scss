@@ -157,6 +157,11 @@ body.modal-open {
 	overflow: hidden;
 }
 
+.components-button:focus:not( :disabled ) {
+	box-shadow: none;
+	outline: none;
+}
+
 .wffn_template_preview_wrap
 	.wffn_template_preview_header
 	.wffn_template_viewport
@@ -2351,8 +2356,15 @@ body .iziModal .iziModal-button-close:hover:before {
 	background-position: center !important;
 	margin-top: 6px;
 }
-.wffn_template_preview_wrap .wffn_template_preview_content .wffn_template_preview_inner .wffn-web-preview.is-loading, .wffn_template_preview_wrap .wffn_template_preview_content .wffn_template_preview_inner .woocommerce-web-preview.is-loading {
-	min-height: calc(100vh - 66px);
+.wffn_template_preview_wrap
+	.wffn_template_preview_content
+	.wffn_template_preview_inner
+	.wffn-web-preview.is-loading,
+.wffn_template_preview_wrap
+	.wffn_template_preview_content
+	.wffn_template_preview_inner
+	.woocommerce-web-preview.is-loading {
+	min-height: calc( 100vh - 66px );
 	background: #fff;
 }
 .wffn_template_preview_wrap .wffn_template_preview_content {
